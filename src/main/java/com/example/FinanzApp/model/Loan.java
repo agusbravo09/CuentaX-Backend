@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -26,8 +25,8 @@ public class Loan {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private LoanType type;
-    @Column(nullable = false, precision = 15, scale = 2)
-    private BigDecimal totalAmount;
+    @Column(nullable = false)
+    private Double totalAmount;
     private String involvedPerson;
     @Column(nullable = false)
     private Date startDate;

@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -28,8 +27,8 @@ public class Account {
     @Column(nullable = false)
     private AccountType type;
 
-    @Column(nullable = false, precision = 15, scale = 2)
-    private BigDecimal currentBalance;
+    @Column(nullable = false)
+    private Double currentBalance;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

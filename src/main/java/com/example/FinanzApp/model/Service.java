@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Getter
@@ -22,8 +21,8 @@ public class Service {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false, precision = 15, scale = 2)
-    private BigDecimal monthlyAmount;
+    @Column(nullable = false)
+    private Double monthlyAmount;
     @Column(nullable = false)
     private Date expireDate;
 
