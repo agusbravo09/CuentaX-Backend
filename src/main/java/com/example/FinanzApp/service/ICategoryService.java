@@ -1,14 +1,13 @@
 package com.example.FinanzApp.service;
 
-import com.example.FinanzApp.dto.categories.CategoryDTO;
-import com.example.FinanzApp.dto.categories.CreateCategoryDTO;
+import com.example.FinanzApp.dto.category.CategoryDTO;
 
 import java.util.List;
 
 public interface ICategoryService {
-    List<CategoryDTO> getAll();
-    CategoryDTO getById(Long id);
-    CategoryDTO create(CreateCategoryDTO dto);
-    CategoryDTO update(Long id, CreateCategoryDTO dto);
-    void delete(Long id);
+    CategoryDTO createCategory(CategoryDTO categoryDTO);
+    CategoryDTO getCategoryById(Long id);
+    List<CategoryDTO> getAllCategories();
+    CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO);
+    void deleteCategory(Long id);
 }

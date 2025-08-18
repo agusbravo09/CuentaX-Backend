@@ -1,13 +1,14 @@
 package com.example.FinanzApp.service;
 
-import com.example.FinanzApp.dto.internaltransfers.CreateInternalTransferDTO;
-import com.example.FinanzApp.dto.internaltransfers.InternalTransferDTO;
+import com.example.FinanzApp.dto.internalTransfer.InternalTransferRequestDTO;
+import com.example.FinanzApp.dto.internalTransfer.InternalTransferResponseDTO;
 
 import java.util.List;
 
 public interface IInternalTransferService {
-    List<InternalTransferDTO> getAll();
-    InternalTransferDTO getById(Long id);
-    InternalTransferDTO create(CreateInternalTransferDTO dto);
-    void delete(Long id);
+    InternalTransferResponseDTO createInternalTransfer(InternalTransferRequestDTO requestDTO);
+    InternalTransferResponseDTO getInternalTransferById(Long id);
+    List<InternalTransferResponseDTO> getAllInternalTransfers();
+    List<InternalTransferResponseDTO> getTransfersByAccount(Long accountId);
+    void deleteInternalTransfer(Long id);
 }

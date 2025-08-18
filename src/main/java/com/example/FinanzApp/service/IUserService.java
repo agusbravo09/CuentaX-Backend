@@ -1,14 +1,15 @@
 package com.example.FinanzApp.service;
 
-import com.example.FinanzApp.dto.users.CreateUserDTO;
-import com.example.FinanzApp.dto.users.UserDTO;
+import com.example.FinanzApp.dto.user.UserRequestDTO;
+import com.example.FinanzApp.dto.user.UserResponseDTO;
 
 import java.util.List;
 
 public interface IUserService {
-    List<UserDTO> getAll();
-    UserDTO getById(Long id);
-    UserDTO create(CreateUserDTO dto);
-    UserDTO updateEmail(Long id, String email);
-    void delete(Long id);
+    UserResponseDTO createUser(UserRequestDTO requestDTO);
+    UserResponseDTO getUserById(Long id);
+    UserResponseDTO getUserByEmail(String email);
+    List<UserResponseDTO> getAllUsers();
+    UserResponseDTO updateUser(Long id, UserRequestDTO requestDTO);
+    void deleteUser(Long id);
 }

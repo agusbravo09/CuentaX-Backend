@@ -1,13 +1,15 @@
 package com.example.FinanzApp.service;
 
-import com.example.FinanzApp.dto.accounts.*;
+import com.example.FinanzApp.dto.account.AccountRequestDTO;
+import com.example.FinanzApp.dto.account.AccountResponseDTO;
 
 import java.util.List;
 
 public interface IAccountService {
-    AccountDTO create(CreateAccountDTO dto);
-    List<AccountDTO> getAll();
-    AccountDTO getById(Long id);
-    AccountDTO update(Long id, UpdateAccountDTO dto);
-    void delete(Long id);
+    AccountResponseDTO createAccount(AccountRequestDTO requestDTO);
+    AccountResponseDTO getAccountById(Long id);
+    List<AccountResponseDTO> getAllAccounts();
+    AccountResponseDTO updateAccount(Long id, AccountRequestDTO requestDTO);
+    void deleteAccount(Long id);
+    Double getAccountBalance(Long accountId);
 }
