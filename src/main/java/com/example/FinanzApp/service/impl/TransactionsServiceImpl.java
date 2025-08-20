@@ -51,19 +51,19 @@ public class TransactionsServiceImpl implements ITransactionService {
 
     @Override
     public TransactionResponseDTO getTransactionById(Long id) {
-        Transaction transaction = transactionRepo.findById(id).orElseThrow(() -> new RuntimeException("Transaction not found"));
+        Transaction transaction = transactionRepo.findByIdWithRelations(id).orElseThrow(() -> new RuntimeException("Transaction not found"));
 
         return transactionMapper.toResponse(transaction);
     }
 
     @Override
     public List<TransactionResponseDTO> getAllTransactions() {
-        return transactionRepo.findAll().stream().map(transactionMapper::toResponse).collect(Collectors.toList());
+        return transactionRepo.findAllWithRelations().stream().map(transactionMapper::toResponse).collect(Collectors.toList());
     }
 
     @Override
     public List<TransactionResponseDTO> getTransactionsByAccount(Long accountId) {
-        return transactionRepo.findByAccountId(accountId).stream().map(transactionMapper::toResponse).collect(Collectors.toList());
+        return transactionRepo.findByAccountIdWithRelations(accountId).stream().map(transactionMapper::toResponse).collect(Collectors.toList());
     }
 
     @Override

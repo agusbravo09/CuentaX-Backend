@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -22,7 +22,7 @@ public class LoanPayment {
     @Column(nullable = false)
     private Double amount;
     @Column(nullable = false)
-    private Date payDate;
+    private LocalDate payDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "loan_id", nullable = false)

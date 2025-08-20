@@ -74,7 +74,7 @@ public class LoanService implements ILoanService {
     @Transactional
     public void deleteLoan(Long id) {
         Loan loan = loanRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Loan not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Loan not found"));
 
         if (!loan.getLoanPayments().isEmpty()) {
             throw new RuntimeException("Cannot delete loan with associated payments");
@@ -88,14 +88,14 @@ public class LoanService implements ILoanService {
     @Transactional
     public LoanResponseDTO updateLoanState(Long id, LoanState state) {
         Loan loan = loanRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Loan not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Loan not found"));
 
         try {
             loan.setState(state);
             Loan updatedLoan = loanRepo.save(loan);
             return loanMapper.toResponse(updatedLoan);
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Invalid loan state: " + state);
+            throw new RuntimeException("Invalid loan state");
         }
     }
 }

@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -29,9 +29,9 @@ public class Loan {
     private Double totalAmount;
     private String involvedPerson;
     @Column(nullable = false)
-    private Date startDate;
+    private LocalDate startDate;
     @Column(nullable = false)
-    private Date endDate;
+    private LocalDate endDate;
     @Enumerated(EnumType.STRING)
     private LoanState state;
 

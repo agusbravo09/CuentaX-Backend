@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ public class ServicesResponseDTO {
     private Long id;
     private String name;
     private Double monthlyAmount;
-    private Date expireDate;
+    private LocalDate expireDate;
     private String accountName;
     private String categoryName;
 }

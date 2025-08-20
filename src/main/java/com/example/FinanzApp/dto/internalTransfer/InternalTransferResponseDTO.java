@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import java.util.Date;
 public class InternalTransferResponseDTO {
     private Long id;
     private Double amount;
-    private Date date;
+    private LocalDate date;
     private String originAccountName;
     private String destinationAccountName;
 }

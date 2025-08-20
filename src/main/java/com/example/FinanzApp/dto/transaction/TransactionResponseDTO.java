@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,7 +18,7 @@ public class TransactionResponseDTO {
     private TransType type;
     private Double amount;
     private String description;
-    private Date date;
+    private LocalDate date;
     private String paymentMethodName;
     private String categoryName;
     private String accountName;

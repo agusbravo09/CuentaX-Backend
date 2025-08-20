@@ -13,7 +13,12 @@ public interface TransactionMapper {
     TransactionMapper INSTANCE = Mappers.getMapper(TransactionMapper.class);
 
     Transaction toEntity(TransactionRequestDTO dto);
+
+    @Mapping(source = "paymentMethod.name", target = "paymentMethodName")
+    @Mapping(source = "category.name", target = "categoryName")
+    @Mapping(source = "account.name", target = "accountName")
     TransactionResponseDTO toResponse(Transaction entity);
+
     @Mapping(target = "id", ignore = true)
     void updateEntityFromDto(TransactionRequestDTO dto, @MappingTarget Transaction entity);
 }

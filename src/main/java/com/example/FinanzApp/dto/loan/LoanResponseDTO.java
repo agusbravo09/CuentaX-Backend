@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -19,8 +19,8 @@ public class LoanResponseDTO {
     private LoanType type;
     private Double totalAmount;
     private String involvedPerson;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private LoanState state;
     private String userName;
 }

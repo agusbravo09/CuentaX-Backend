@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,6 +15,6 @@ import java.util.Date;
 public class LoanPaymentResponseDTO {
     private Long id;
     private Double amount;
-    private Date payDate;
+    private LocalDate payDate;
     private Long loanId;
 }
