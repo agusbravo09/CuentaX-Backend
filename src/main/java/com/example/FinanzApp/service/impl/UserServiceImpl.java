@@ -7,6 +7,7 @@ import com.example.FinanzApp.model.User;
 import com.example.FinanzApp.repository.IUserRepository;
 import com.example.FinanzApp.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,8 @@ public class UserServiceImpl implements IUserService {
     private IUserRepository userRepo;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -26,8 +29,12 @@ public class UserServiceImpl implements IUserService {
         if(userRepo.existsByEmail(requestDTO.getEmail())){
             throw new RuntimeException("Email already in use.");
         }
+        //encrypt password
+        String encryptedPassword = passwordEncoder.encode(requestDTO.getPassword());
 
         User user = userMapper.toEntity(requestDTO);
+        user.setPassword(encryptedPassword);
+
         User savedUser = userRepo.save(user);
 
         return userMapper.toResponse(savedUser);
@@ -64,7 +71,13 @@ public class UserServiceImpl implements IUserService {
 
         existingUser.setName(requestDTO.getName());
         existingUser.setEmail(requestDTO.getEmail());
-        existingUser.setPassword(requestDTO.getPassword());
+
+        //update password
+        if(requestDTO.getPassword() != null && !requestDTO.getPassword().isEmpty()){
+            String encryptedPassword = passwordEncoder.encode(requestDTO.getPassword());
+            existingUser.setPassword(encryptedPassword);
+        }
+
 
         User updatedUser = userRepo.save(existingUser);
         return userMapper.toResponse(updatedUser);
