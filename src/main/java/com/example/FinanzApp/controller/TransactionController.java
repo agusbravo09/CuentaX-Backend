@@ -39,6 +39,12 @@ public class TransactionController {
         return ResponseEntity.ok(responses);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<TransactionResponseDTO>> getTransactionByUserId(@PathVariable Long userId){
+        List<TransactionResponseDTO> responses = transactionService.getTransactionsByUserId(userId);
+        return ResponseEntity.ok(responses);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<TransactionResponseDTO> updateTransaction(@PathVariable Long id,
                                                                     @RequestBody TransactionRequestDTO requestDTO){

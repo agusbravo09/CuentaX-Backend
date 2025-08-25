@@ -17,4 +17,6 @@ public interface ITransactionRepository extends JpaRepository<Transaction, Long>
     Optional<Transaction> findByIdWithRelations(@Param("id") Long id);
     @Query("SELECT t FROM Transaction t LEFT JOIN FETCH t.paymentMethod LEFT JOIN FETCH t.category LEFT JOIN FETCH t.account WHERE t.account.id = :accountId")
     List<Transaction> findByAccountIdWithRelations(@Param("accountIid") Long accountId);
+    @Query("SELECT t FROM Transaction t LEFT JOIN FETCH t.paymentMethod LEFT JOIN FETCH t.category LEFT JOIN FETCH t.account WHERE t.account.user.id = :userId")
+    List<Transaction> findByUserId(@Param("userId") Long userId);
 }

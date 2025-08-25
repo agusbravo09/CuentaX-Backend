@@ -52,6 +52,11 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
+    public List<AccountResponseDTO> getAccountsByUserId(Long userId) {
+        return accountRepo.findByUserId(userId).stream().map(accountMapper::toResponse).collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public AccountResponseDTO updateAccount(Long id, AccountRequestDTO requestDTO) {
         Account existingAccount = accountRepo.findById(id).orElseThrow(() -> new RuntimeException("Account not found"));

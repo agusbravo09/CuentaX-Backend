@@ -33,6 +33,12 @@ public class AccountController {
         return ResponseEntity.ok(responses);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<AccountResponseDTO>> getAccountsByUserId(@PathVariable Long userId){
+        List<AccountResponseDTO> responses = accountService.getAccountsByUserId(userId);
+        return ResponseEntity.ok(responses);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<AccountResponseDTO> updateAccount(@PathVariable Long id,
                                                             @RequestBody AccountRequestDTO requestDTO){

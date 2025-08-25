@@ -67,6 +67,11 @@ public class TransactionsServiceImpl implements ITransactionService {
     }
 
     @Override
+    public List<TransactionResponseDTO> getTransactionsByUserId(Long userId) {
+        return transactionRepo.findByUserId(userId).stream().map(transactionMapper::toResponse).collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public TransactionResponseDTO updateTransaction(Long id, TransactionRequestDTO requestDTO) {
         Transaction existingTransaction = transactionRepo.findById(id).orElseThrow(() -> new RuntimeException("Transaction not found"));

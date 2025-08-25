@@ -9,6 +9,7 @@ public interface IAccountService {
     AccountResponseDTO createAccount(AccountRequestDTO requestDTO);
     AccountResponseDTO getAccountById(Long id);
     List<AccountResponseDTO> getAllAccounts();
+    List<AccountResponseDTO> getAccountsByUserId(Long userId);
     AccountResponseDTO updateAccount(Long id, AccountRequestDTO requestDTO);
     void deleteAccount(Long id);
     Double getAccountBalance(Long accountId);
