@@ -35,9 +35,6 @@ public class Account {
     private User user;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Services> services;
-
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
 
     @OneToMany(mappedBy = "originAccount", cascade = CascadeType.ALL, orphanRemoval = true)
