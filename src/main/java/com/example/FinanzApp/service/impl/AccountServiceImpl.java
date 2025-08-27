@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,9 @@ public class AccountServiceImpl implements IAccountService {
 
         a.setUser(userRepo.findById(requestDTO.getUserId())
                         .orElseThrow(() -> new RuntimeException("User not found")));
+
+        LocalDate now = LocalDate.now();
+        a.setCreatedAt(now);
 
         Account savedAccount = accountRepo.save(a);
 
