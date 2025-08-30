@@ -19,4 +19,6 @@ public class InternalTransferResponseDTO {
     private LocalDate date;
     private String originAccountName;
     private String destinationAccountName;
+    private Long originAccountId;
+    private Long destinationAccountId;
 }
