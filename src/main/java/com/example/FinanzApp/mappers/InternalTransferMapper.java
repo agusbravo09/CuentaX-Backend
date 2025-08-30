@@ -15,5 +15,7 @@ public interface InternalTransferMapper {
 
     @Mapping(source = "originAccount.name", target = "originAccountName")
     @Mapping(source = "destinationAccount.name", target = "destinationAccountName")
+    @Mapping(source = "originAccount.id", target = "originAccountId")
+    @Mapping(source = "destinationAccount.id", target = "destinationAccountId")
     InternalTransferResponseDTO toResponse(InternalTransfer entity);
 }
