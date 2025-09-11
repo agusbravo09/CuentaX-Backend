@@ -6,10 +6,7 @@ import com.example.FinanzApp.mappers.TransactionMapper;
 import com.example.FinanzApp.model.Account;
 import com.example.FinanzApp.model.Transaction;
 import com.example.FinanzApp.model.enums.TransType;
-import com.example.FinanzApp.repository.IAccountRepository;
-import com.example.FinanzApp.repository.ICategoryRepository;
-import com.example.FinanzApp.repository.IPaymentMethodRepository;
-import com.example.FinanzApp.repository.ITransactionRepository;
+import com.example.FinanzApp.repository.*;
 import com.example.FinanzApp.service.ITransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +26,8 @@ public class TransactionsServiceImpl implements ITransactionService {
     @Autowired
     private ICategoryRepository categoryRepo;
     @Autowired
+    private IUserRepository userRepo;
+    @Autowired
     private TransactionMapper transactionMapper;
 
 
@@ -41,6 +40,7 @@ public class TransactionsServiceImpl implements ITransactionService {
         transaction.setAccount(accountRepo.findById(requestDTO.getAccountId()).orElseThrow(() -> new RuntimeException("Account not found")));
         transaction.setPaymentMethod(paymentMethodRepo.findById(requestDTO.getPaymentMethodId()).orElseThrow(() -> new RuntimeException("Payment method not fount")));
         transaction.setCategory(categoryRepo.findById(requestDTO.getCategoryId()).orElseThrow(() -> new RuntimeException("Category not found")));
+        transaction.setUser(userRepo.findById(requestDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found")));
 
         //update account balance.
         updateAccountBalance(transaction);
@@ -51,19 +51,19 @@ public class TransactionsServiceImpl implements ITransactionService {
 
     @Override
     public TransactionResponseDTO getTransactionById(Long id) {
-        Transaction transaction = transactionRepo.findByIdWithRelations(id).orElseThrow(() -> new RuntimeException("Transaction not found"));
+        Transaction transaction = transactionRepo.findById(id).orElseThrow(() -> new RuntimeException("Transaction not found"));
 
         return transactionMapper.toResponse(transaction);
     }
 
     @Override
     public List<TransactionResponseDTO> getAllTransactions() {
-        return transactionRepo.findAllWithRelations().stream().map(transactionMapper::toResponse).collect(Collectors.toList());
+        return transactionRepo.findAll().stream().map(transactionMapper::toResponse).collect(Collectors.toList());
     }
 
     @Override
     public List<TransactionResponseDTO> getTransactionsByAccount(Long accountId) {
-        return transactionRepo.findByAccountIdWithRelations(accountId).stream().map(transactionMapper::toResponse).collect(Collectors.toList());
+        return transactionRepo.findByAccountId(accountId).stream().map(transactionMapper::toResponse).collect(Collectors.toList());
     }
 
     @Override
@@ -86,6 +86,7 @@ public class TransactionsServiceImpl implements ITransactionService {
         existingTransaction.setAccount(accountRepo.findById(requestDTO.getAccountId()).orElseThrow(() -> new RuntimeException("Account not found")));
         existingTransaction.setCategory(categoryRepo.findById(requestDTO.getCategoryId()).orElseThrow(() -> new RuntimeException("Category not found")));
         existingTransaction.setPaymentMethod(paymentMethodRepo.findById(requestDTO.getPaymentMethodId()).orElseThrow(() -> new RuntimeException("Payment method not found")));
+        existingTransaction.setUser(userRepo.findById(requestDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found")));
 
         //apply new transaction effects.
         updateAccountBalance(existingTransaction);

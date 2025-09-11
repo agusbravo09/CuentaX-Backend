@@ -21,4 +21,5 @@ public class TransactionRequestDTO {
     private Long paymentMethodId;
     private Long categoryId;
     private Long accountId;
+    private Long userId;
 }
