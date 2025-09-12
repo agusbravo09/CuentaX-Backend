@@ -16,4 +16,5 @@ public class AccountRequestDTO {
     private AccountType type;
     private Double currentBalance;
     private Long userId;
+    private Long organizationId;
 }

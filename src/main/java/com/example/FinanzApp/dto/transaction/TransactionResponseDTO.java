@@ -23,4 +23,5 @@ public class TransactionResponseDTO {
     private String categoryName;
     private String accountName;
     private String userName;
+    private String organizationName;
 }

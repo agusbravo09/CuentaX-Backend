@@ -22,4 +22,5 @@ public class TransactionRequestDTO {
     private Long categoryId;
     private Long accountId;
     private Long userId;
+    private Long organizationId;
 }

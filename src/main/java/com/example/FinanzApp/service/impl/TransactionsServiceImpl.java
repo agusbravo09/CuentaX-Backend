@@ -28,6 +28,8 @@ public class TransactionsServiceImpl implements ITransactionService {
     @Autowired
     private IUserRepository userRepo;
     @Autowired
+    private IOrganizationRepository orgRepo;
+    @Autowired
     private TransactionMapper transactionMapper;
 
 
@@ -40,7 +42,11 @@ public class TransactionsServiceImpl implements ITransactionService {
         transaction.setAccount(accountRepo.findById(requestDTO.getAccountId()).orElseThrow(() -> new RuntimeException("Account not found")));
         transaction.setPaymentMethod(paymentMethodRepo.findById(requestDTO.getPaymentMethodId()).orElseThrow(() -> new RuntimeException("Payment method not fount")));
         transaction.setCategory(categoryRepo.findById(requestDTO.getCategoryId()).orElseThrow(() -> new RuntimeException("Category not found")));
-        transaction.setUser(userRepo.findById(requestDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found")));
+        if(requestDTO.getUserId() != null){
+            transaction.setUser(userRepo.findById(requestDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found.")));
+        }else if(requestDTO.getOrganizationId() != null){
+            transaction.setOrganization(orgRepo.findById(requestDTO.getOrganizationId()).orElseThrow(() -> new RuntimeException("Organization not found.")));
+        }
 
         //update account balance.
         updateAccountBalance(transaction);
@@ -86,7 +92,11 @@ public class TransactionsServiceImpl implements ITransactionService {
         existingTransaction.setAccount(accountRepo.findById(requestDTO.getAccountId()).orElseThrow(() -> new RuntimeException("Account not found")));
         existingTransaction.setCategory(categoryRepo.findById(requestDTO.getCategoryId()).orElseThrow(() -> new RuntimeException("Category not found")));
         existingTransaction.setPaymentMethod(paymentMethodRepo.findById(requestDTO.getPaymentMethodId()).orElseThrow(() -> new RuntimeException("Payment method not found")));
-        existingTransaction.setUser(userRepo.findById(requestDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found")));
+        if(requestDTO.getUserId() != null){
+            existingTransaction.setUser(userRepo.findById(requestDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found.")));
+        }else if(requestDTO.getOrganizationId() != null){
+            existingTransaction.setOrganization(orgRepo.findById(requestDTO.getOrganizationId()).orElseThrow(() -> new RuntimeException("Organization not found.")));
+        }
 
         //apply new transaction effects.
         updateAccountBalance(existingTransaction);
