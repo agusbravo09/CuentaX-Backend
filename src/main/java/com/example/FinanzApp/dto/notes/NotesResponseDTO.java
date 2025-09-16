@@ -17,8 +17,6 @@ public class NotesResponseDTO {
     private String title;
     private String content;
     private String userName;
-    private String asignToName;
     private LocalDateTime createdDate;
-    private Boolean task;
     private String comments;
 }

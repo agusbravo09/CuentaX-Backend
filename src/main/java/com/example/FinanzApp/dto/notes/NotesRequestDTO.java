@@ -14,7 +14,5 @@ public class NotesRequestDTO {
     private String title;
     private String content;
     private Long userId;
-    private Long asignToId;
-    private Boolean task;
     private String comments;
 }

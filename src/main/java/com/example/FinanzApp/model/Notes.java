@@ -30,14 +30,8 @@ public class Notes {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "asign_to")
-    private User asignTo;
-
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
-
-    private Boolean task;
 
     @Column(columnDefinition = "TEXT")
     private String comments;

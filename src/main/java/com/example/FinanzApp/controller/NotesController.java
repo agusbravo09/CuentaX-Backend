@@ -39,26 +39,6 @@ public class NotesController {
         return ResponseEntity.ok(notes);
     }
 
-    @GetMapping("/assigned/{asignToId}")
-    public ResponseEntity<List<NotesResponseDTO>> getNotesAssignedToUser(@PathVariable Long asignToId) {
-        List<NotesResponseDTO> notes = notesService.getNotesAssignedToUser(asignToId);
-        return ResponseEntity.ok(notes);
-    }
-
-    @GetMapping("/tasks")
-    public ResponseEntity<List<NotesResponseDTO>> getTasks(@RequestParam Boolean task) {
-        List<NotesResponseDTO> notes = notesService.getTasks(task);
-        return ResponseEntity.ok(notes);
-    }
-
-    @GetMapping("/user/{userId}/tasks")
-    public ResponseEntity<List<NotesResponseDTO>> getTasksByUser(
-            @PathVariable Long userId,
-            @RequestParam Boolean task) {
-        List<NotesResponseDTO> notes = notesService.getTasksByUser(userId, task);
-        return ResponseEntity.ok(notes);
-    }
-
     @GetMapping("/search/title")
     public ResponseEntity<List<NotesResponseDTO>> searchByTitle(@RequestParam String title) {
         List<NotesResponseDTO> notes = notesService.searchByTitle(title);
@@ -90,24 +70,6 @@ public class NotesController {
             @PathVariable Long id,
             @RequestParam String comment) {
         NotesResponseDTO updatedNote = notesService.addComment(id, comment);
-        return ResponseEntity.ok(updatedNote);
-    }
-
-    // Endpoint específico para organización
-    @GetMapping("/organization/{userId}")
-    public ResponseEntity<List<NotesResponseDTO>> getNotesForOrganization(
-            @PathVariable Long userId,
-            @RequestParam List<Long> organizationUserIds) {
-        List<NotesResponseDTO> notes = notesService.getNotesForOrganization(userId, organizationUserIds);
-        return ResponseEntity.ok(notes);
-    }
-
-    @PostMapping("/{noteId}/assign/{asignToId}")
-    public ResponseEntity<NotesResponseDTO> assignNoteToOrganizationMember(
-            @PathVariable Long noteId,
-            @PathVariable Long asignToId,
-            @RequestParam Long currentUserId) {
-        NotesResponseDTO updatedNote = notesService.assignNoteToOrganizationMember(noteId, asignToId, currentUserId);
         return ResponseEntity.ok(updatedNote);
     }
 }

@@ -30,14 +30,8 @@ public class NotesServiceImpl implements INotesService {
     public NotesResponseDTO createNote(NotesRequestDTO requestDTO) {
         User user = userRepo.findById(requestDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found."));
 
-        User asignTo = null;
-        if(requestDTO.getAsignToId() != null){
-            asignTo = userRepo.findById(requestDTO.getAsignToId()).orElseThrow(() -> new RuntimeException("Assigned user not found."));
-        }
-
         Notes note = notesMapper.toEntity(requestDTO);
         note.setUser(user);
-        note.setAsignTo(asignTo);
         note.setCreatedDate(LocalDateTime.now());
 
         Notes savedNote = notesRepo.save(note);
@@ -62,21 +56,6 @@ public class NotesServiceImpl implements INotesService {
     }
 
     @Override
-    public List<NotesResponseDTO> getNotesAssignedToUser(Long asignToId) {
-        return notesRepo.findByAsignToId(asignToId).stream().map(notesMapper::toResponse).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<NotesResponseDTO> getTasks(Boolean task) {
-        return notesRepo.findByTask(task).stream().map(notesMapper::toResponse).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<NotesResponseDTO> getTasksByUser(Long userId, Boolean task) {
-        return notesRepo.findByUserIdAndTask(userId, task).stream().map(notesMapper::toResponse).collect(Collectors.toList());
-    }
-
-    @Override
     public List<NotesResponseDTO> searchByTitle(String title) {
         return notesRepo.findByTitleContainingIgnoreCase(title).stream().map(notesMapper::toResponse).collect(Collectors.toList());
     }
@@ -93,15 +72,7 @@ public class NotesServiceImpl implements INotesService {
 
         note.setTitle(requestDTO.getTitle());
         note.setContent(requestDTO.getContent());
-        note.setTask(requestDTO.getTask());
         note.setComments(requestDTO.getComments());
-
-        if(requestDTO.getAsignToId() != null){
-            User asignTo = userRepo.findById(requestDTO.getAsignToId()).orElseThrow(() -> new RuntimeException("User not found"));
-            note.setAsignTo(asignTo);
-        }else{
-            note.setAsignTo(null);
-        }
 
         Notes updatedNote = notesRepo.save(note);
         return notesMapper.toResponse(updatedNote);
@@ -128,21 +99,4 @@ public class NotesServiceImpl implements INotesService {
         return notesMapper.toResponse(updatedNote);
     }
 
-    @Override
-    public List<NotesResponseDTO> getNotesForOrganization(Long userId, List<Long> organizationUserIds) {
-        return notesRepo.findByUserIdAndAsignToIdIn(userId, organizationUserIds).stream().map(notesMapper::toResponse).collect(Collectors.toList());
-    }
-
-    @Override
-    @Transactional
-    public NotesResponseDTO assignNoteToOrganizationMember(Long noteId, Long asignToId, Long currentUserId) {
-        Notes note = notesRepo.findById(noteId).orElseThrow(() -> new RuntimeException("Note not found."));
-
-        User asignTo = userRepo.findById(asignToId).orElseThrow(() -> new RuntimeException("User not found."));
-
-        note.setAsignTo(asignTo);
-        Notes updatedNote = notesRepo.save(note);
-
-        return notesMapper.toResponse(updatedNote);
-    }
 }

@@ -14,6 +14,5 @@ public interface NotesMapper {
     Notes toEntity(NotesRequestDTO requestDTO);
 
     @Mapping(source = "user.name", target = "userName")
-    @Mapping(source = "asignTo.name", target = "asignToName")
     NotesResponseDTO toResponse(Notes entity);
 }
