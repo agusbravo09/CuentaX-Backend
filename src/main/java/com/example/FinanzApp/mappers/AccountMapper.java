@@ -13,6 +13,5 @@ public interface AccountMapper {
 
     Account toEntity(AccountRequestDTO dto);
     @Mapping(source = "user.name", target = "userName")
-    @Mapping(source = "organization.name", target = "organizationName")
     AccountResponseDTO toResponse(Account entity);
 }

@@ -28,10 +28,13 @@ public class NotesServiceImpl implements INotesService {
     @Override
     @Transactional
     public NotesResponseDTO createNote(NotesRequestDTO requestDTO) {
-        User user = userRepo.findById(requestDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found."));
-
         Notes note = notesMapper.toEntity(requestDTO);
-        note.setUser(user);
+
+        if(requestDTO.getUserId() != null) {
+            User user = userRepo.findById(requestDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found."));
+            note.setUser(user);
+        }
+
         note.setCreatedDate(LocalDateTime.now());
 
         Notes savedNote = notesRepo.save(note);

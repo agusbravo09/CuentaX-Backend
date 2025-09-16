@@ -18,7 +18,6 @@ public interface TransactionMapper {
     @Mapping(source = "category.name", target = "categoryName")
     @Mapping(source = "account.name", target = "accountName")
     @Mapping(source = "user.name", target = "userName")
-    @Mapping(source = "organization.name", target = "organizationName")
     TransactionResponseDTO toResponse(Transaction entity);
 
     @Mapping(target = "id", ignore = true)

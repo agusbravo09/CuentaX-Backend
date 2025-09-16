@@ -27,7 +27,7 @@ public class Notes {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "created_date", nullable = false)

@@ -5,7 +5,6 @@ import com.example.FinanzApp.dto.account.AccountResponseDTO;
 import com.example.FinanzApp.mappers.AccountMapper;
 import com.example.FinanzApp.model.Account;
 import com.example.FinanzApp.repository.IAccountRepository;
-import com.example.FinanzApp.repository.IOrganizationRepository;
 import com.example.FinanzApp.repository.IUserRepository;
 import com.example.FinanzApp.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,6 @@ public class AccountServiceImpl implements IAccountService {
     private IUserRepository userRepo;
 
     @Autowired
-    private IOrganizationRepository orgRepo;
-
-    @Autowired
     private AccountMapper accountMapper;
 
 
@@ -39,11 +35,6 @@ public class AccountServiceImpl implements IAccountService {
         if(requestDTO.getUserId() != null){
             a.setUser(userRepo.findById(requestDTO.getUserId())
                     .orElseThrow(() -> new RuntimeException("User not found")));
-        }else if (requestDTO.getOrganizationId() != null){
-            a.setOrganization(orgRepo.findById(requestDTO.getOrganizationId())
-                    .orElseThrow(() -> new RuntimeException("User not found")));
-        }else{
-            throw new RuntimeException("An account must belong to either a user or an organization");
         }
 
         a.setCreatedAt(LocalDate.now());
