@@ -26,6 +26,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Permitir registro sin autenticación
                         .requestMatchers("/api/v1/users").permitAll()
+                        // Permitir feedback sin autenticación
+                        .requestMatchers("/api/v1/feedback").permitAll()
                         // Todos los demás endpoints requieren autenticación
                         .anyRequest().authenticated()
                 )
