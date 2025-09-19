@@ -32,11 +32,12 @@ public class AccountServiceImpl implements IAccountService {
     public AccountResponseDTO createAccount(AccountRequestDTO requestDTO) {
         Account a = accountMapper.toEntity(requestDTO);
 
-        a.setUser(userRepo.findById(requestDTO.getUserId())
-                        .orElseThrow(() -> new RuntimeException("User not found")));
+        if(requestDTO.getUserId() != null){
+            a.setUser(userRepo.findById(requestDTO.getUserId())
+                    .orElseThrow(() -> new RuntimeException("User not found")));
+        }
 
-        LocalDate now = LocalDate.now();
-        a.setCreatedAt(now);
+        a.setCreatedAt(LocalDate.now());
 
         Account savedAccount = accountRepo.save(a);
 

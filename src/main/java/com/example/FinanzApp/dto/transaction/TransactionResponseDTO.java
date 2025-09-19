@@ -22,4 +22,6 @@ public class TransactionResponseDTO {
     private String paymentMethodName;
     private String categoryName;
     private String accountName;
+    private String userName;
+    private String organizationName;
 }

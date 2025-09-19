@@ -21,10 +21,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> {})
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         // Permitir registro sin autenticación
                         .requestMatchers("/api/v1/users").permitAll()
+                        // Permitir feedback sin autenticación
+                        .requestMatchers("/api/v1/feedback").permitAll()
                         // Todos los demás endpoints requieren autenticación
                         .anyRequest().authenticated()
                 )

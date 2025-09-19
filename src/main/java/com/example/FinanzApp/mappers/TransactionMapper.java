@@ -17,6 +17,7 @@ public interface TransactionMapper {
     @Mapping(source = "paymentMethod.name", target = "paymentMethodName")
     @Mapping(source = "category.name", target = "categoryName")
     @Mapping(source = "account.name", target = "accountName")
+    @Mapping(source = "user.name", target = "userName")
     TransactionResponseDTO toResponse(Transaction entity);
 
     @Mapping(target = "id", ignore = true)

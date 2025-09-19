@@ -20,4 +20,5 @@ public class AccountResponseDTO {
     private Double currentBalance;
     private String userName;
     private Date createdAt;
+    private String organizationName;
 }
